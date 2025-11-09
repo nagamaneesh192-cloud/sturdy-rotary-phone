@@ -1,2 +1,2 @@
-# sturdy-rotary-phone
-creating test repo for demo use
+# testrepo
+used in september of 1962 fall semister.
