@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maneesh - Web Developer Portfolio</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind for custom styles and Inter font -->
-    <script>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font (Default) --><link href="https://fonts.googleapis.com/css2?family=Inter:wght100;400;700;900&display=swap" rel="stylesheet">
+    <!-- Load Montserrat Font (Stylish Headline Font) --><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <!-- Configure Tailwind for custom styles and Inter font --><script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -17,14 +17,15 @@
                         'subtle-light': '#f1f5f9',
                     },
                     fontFamily: {
+                        // Default font for body text
                         sans: ['Inter', 'sans-serif'],
+                        // Custom font for your name/headlines
+                        headline: ['Montserrat', 'sans-serif'],
                     },
                 }
             }
         }
     </script>
-    <!-- Load Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&display=swap" rel="stylesheet">
     <style>
         /* Smooth scrolling for navigation */
         html {
@@ -50,20 +51,89 @@
                 background-position: 0% 50%;
             }
         }
+        
+        /* Floating Text Animation Keyframes (For Hero Name) */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px); /* Moves up 8 pixels */
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        
+        /* Sticker Wobble Animation Keyframes (For Skills Section) */
+        @keyframes wobble-sticker {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1.4);
+            }
+            33% {
+                transform: translate(-48%, -48%) rotate(1deg) scale(1.5);
+            }
+            66% {
+                transform: translate(-52%, -52%) rotate(-1deg) scale(1.4);
+            }
+        }
+
+        /* Utility class to apply the float animation */
+        .animate-float {
+            animation: float 4s ease-in-out infinite; /* 4 seconds duration, smooth easing, repeats infinitely */
+        }
+        
+        /* Utility class to apply the sticker wobble animation */
+        .animate-wobble-sticker {
+            animation: wobble-sticker 8s ease-in-out infinite; /* Slower, more subtle wobble */
+        }
+
+        /* --- New Lighting Border Effect for Projects --- */
+        .project-card-glowing {
+            position: relative;
+            overflow: hidden;
+            z-index: 1; 
+            /* Subtle shadow to enhance the 3D look */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Pseudo-element for the rotating glow border */
+        .project-card-glowing::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            /* UPDATED: Rotating conical gradient using the accent blue and a vibrant purple */
+            background: conic-gradient(transparent, rgba(59, 130, 246, 0.9), transparent, rgba(167, 139, 250, 0.9), transparent);
+            z-index: -1;
+            animation: rotate-glow 4s linear infinite;
+            opacity: 0.8; 
+            transition: opacity 0.3s;
+        }
+
+        /* Hover effect to make the glow more pronounced */
+        .project-card-glowing:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate-glow {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body class="bg-subtle-light text-primary-dark font-sans">
 
-    <!-- Navigation Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <!-- Navigation Header --><header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo/Name -->
-            <a href="#home" class="text-2xl font-extrabold text-primary-dark tracking-tighter">
-                Maneesh
+            <!-- Logo/Name --><a href="#home" class="text-2xl font-extrabold text-primary-dark tracking-tighter">
+                Maneesh T.
             </a>
 
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex space-x-8">
+            <!-- Desktop Navigation --><div class="hidden md:flex space-x-8">
                 <a href="#home" class="text-gray-600 hover:text-accent-blue transition duration-300">Home</a>
                 <a href="#skills" class="text-gray-600 hover:text-accent-blue transition duration-300">Skills</a>
                 <a href="#projects" class="text-gray-600 hover:text-accent-blue transition duration-300">Projects</a>
@@ -71,16 +141,14 @@
                 <a href="#" class="text-accent-blue font-bold hover:text-primary-dark transition duration-300">Resume</a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-primary-dark hover:bg-subtle-light transition duration-300">
+            <!-- Mobile Menu Button --><button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-primary-dark hover:bg-subtle-light transition duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
         </nav>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+        <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
             <a href="#home" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Home</a>
             <a href="#skills" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Skills</a>
             <a href="#projects" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Projects</a>
@@ -89,20 +157,17 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section with Animated Background -->
-        <section id="home" class="py-20 md:py-32 text-white hero-animated-bg">
+    <!-- Main Content --><main>
+        <!-- Hero Section with Animated Background --><section id="home" class="py-20 md:py-32 text-white hero-animated-bg">
             <div class="container mx-auto px-6 text-center">
                 <div class="max-w-4xl mx-auto">
                     
-                    <!-- Highlighted Name -->
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
-                        Hi, I'm <span class="text-yellow-300">Maneesh Thati</span>
+                    <!-- Highlighted Name - ANIMATION APPLIED HERE --><h1 class="font-extrabold mb-4 leading-tight">
+                        <!-- Reduced size for "Hi, I'm" --><span class="text-3xl sm:text-4xl md:text-5xl text-gray-200">Hi, I'm</span> <br>
+                        <!-- Applied custom font class AND the new floating animation --><span class="text-4xl sm:text-5xl md:text-6xl text-yellow-300 font-headline inline-block animate-float">Maneesh Thati</span>
                     </h1>
                     
-                    <!-- Highlighted Title (Updated color to primary-dark) -->
-                    <p class="text-xl sm:text-2xl text-gray-200 mb-8">
+                    <!-- Highlighted Title --><p class="text-xl sm:text-2xl text-gray-200 mb-8">
                         I'm a passionate <span class="font-bold text-primary-dark">Web Developer</span> crafting modern, responsive, and user-friendly digital experiences.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
@@ -117,114 +182,132 @@
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-20">
+        <!-- Skills Section --><section id="skills" class="py-20">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-12 text-primary-dark">My Core <span class="text-accent-blue">Skills</span></h2>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-                    <!-- Skill Card 1: HTML5 (Orange Hover Ring) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-orange-500 ring-offset-2">
-                        <svg class="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4l-4 4 4 4"></path></svg>
-                        <h3 class="text-xl font-semibold">HTML5</h3>
-                        <p class="text-sm text-gray-500">Semantic Structure</p>
+                    <!-- Skill Card 1: HTML5 (Orange Hover Ring) - STICKER ADDED --><div class="relative bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-orange-500 ring-offset-2 overflow-hidden">
+                        <!-- Sticker Background Layer --><div class="absolute top-1/2 left-1/2 rounded-full w-full h-full bg-orange-200 opacity-40 blur-md z-0 animate-wobble-sticker"></div>
+
+                        <!-- Content Layer (relative z-10 ensures content is above the sticker) --><div class="relative z-10 flex flex-col items-center">
+                            <svg class="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4l-4 4 4 4"></path></svg>
+                            <h3 class="text-xl font-semibold">HTML5</h3>
+                            <p class="text-sm text-gray-500">Semantic Structure</p>
+                        </div>
                     </div>
-                    <!-- Skill Card 2: CSS3 & Tailwind (Blue Hover Ring) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-blue-500 ring-offset-2">
-                        <svg class="w-12 h-12 text-blue-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M16 7a2 2 0 012-2h2m0 0l-2 2m2-2l-2-2"></path></svg>
-                        <h3 class="text-xl font-semibold">CSS3/Tailwind</h3>
-                        <p class="text-sm text-gray-500">Responsive Design</p>
+                    
+                    <!-- Skill Card 2: CSS3 & Tailwind (Blue Hover Ring) - STICKER ADDED --><div class="relative bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-blue-500 ring-offset-2 overflow-hidden">
+                         <!-- Sticker Background Layer --><div class="absolute top-1/2 left-1/2 rounded-full w-full h-full bg-blue-200 opacity-40 blur-md z-0 animate-wobble-sticker"></div>
+                        
+                        <!-- Content Layer --><div class="relative z-10 flex flex-col items-center">
+                            <svg class="w-12 h-12 text-blue-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M16 7a2 2 0 012-2h2m0 0l-2 2m2-2l-2-2"></path></svg>
+                            <h3 class="text-xl font-semibold">CSS3/Tailwind</h3>
+                            <p class="text-sm text-gray-500">Responsive Design</p>
+                        </div>
                     </div>
-                    <!-- Skill Card 3: JavaScript (ES6+) (Yellow Hover Ring) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-yellow-500 ring-offset-2">
-                        <svg class="w-12 h-12 text-yellow-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8l-3.35 3.35a3 3 0 000 4.3l3.35 3.35m0-11.3l3.35 3.35a3 3 0 010 4.3l-3.35 3.35"></path></svg>
-                        <h3 class="text-xl font-semibold">JavaScript</h3>
-                        <p class="text-sm text-gray-500">DOM Manipulation</p>
+                    
+                    <!-- Skill Card 3: JavaScript (ES6+) (Yellow Hover Ring) - STICKER ADDED --><div class="relative bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-yellow-500 ring-offset-2 overflow-hidden">
+                         <!-- Sticker Background Layer --><div class="absolute top-1/2 left-1/2 rounded-full w-full h-full bg-yellow-200 opacity-40 blur-md z-0 animate-wobble-sticker"></div>
+
+                        <!-- Content Layer --><div class="relative z-10 flex flex-col items-center">
+                            <svg class="w-12 h-12 text-yellow-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8l-3.35 3.35a3 3 0 000 4.3l3.35 3.35m0-11.3l3.35 3.35a3 3 0 010 4.3l-3.35 3.35"></path></svg>
+                            <h3 class="text-xl font-semibold">JavaScript</h3>
+                            <p class="text-sm text-gray-500">DOM Manipulation</p>
+                        </div>
                     </div>
-                    <!-- Skill Card 4: React (Cyan Hover Ring) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-cyan-500 ring-offset-2">
-                        <svg class="w-12 h-12 text-cyan-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4l-4 4 4 4"></path></svg>
-                        <h3 class="text-xl font-semibold">React</h3>
-                        <p class="text-sm text-gray-500">Component-Based UI</p>
+                    
+                    <!-- Skill Card 4: React (Cyan Hover Ring) - STICKER ADDED --><div class="relative bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-cyan-500 ring-offset-2 overflow-hidden">
+                         <!-- Sticker Background Layer --><div class="absolute top-1/2 left-1/2 rounded-full w-full h-full bg-cyan-200 opacity-40 blur-md z-0 animate-wobble-sticker"></div>
+
+                        <!-- Content Layer --><div class="relative z-10 flex flex-col items-center">
+                            <svg class="w-12 h-12 text-cyan-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4l-4 4 4 4"></path></svg>
+                            <h3 class="text-xl font-semibold">React</h3>
+                            <p class="text-sm text-gray-500">Component-Based UI</p>
+                        </div>
                     </div>
-                    <!-- Skill Card 5: Node.js/Express (Green Hover Ring) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-green-500 ring-offset-2">
-                        <svg class="w-12 h-12 text-green-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1v-3.25m-7.5-3.15V13M12 21h4a2 2 0 002-2v-3a2 2 0 00-2-2H8a2 2 0 00-2 2v3a2 2 0 002 2h4zm-5-3h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"></path></svg>
-                        <h3 class="text-xl font-semibold">Node.js</h3>
-                        <p class="text-sm text-gray-500">Backend Development</p>
+                    
+                    <!-- Skill Card 5: Node.js/Express (Green Hover Ring) - STICKER ADDED --><div class="relative bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-green-500 ring-offset-2 overflow-hidden">
+                         <!-- Sticker Background Layer --><div class="absolute top-1/2 left-1/2 rounded-full w-full h-full bg-green-200 opacity-40 blur-md z-0 animate-wobble-sticker"></div>
+
+                        <!-- Content Layer --><div class="relative z-10 flex flex-col items-center">
+                            <svg class="w-12 h-12 text-green-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1v-3.25m-7.5-3.15V13M12 21h4a2 2 0 002-2v-3a2 2 0 00-2-2H8a2 2 0 00-2 2v3a2 2 0 002 2h4zm-5-3h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"></path></svg>
+                            <h3 class="text-xl font-semibold">Node.js</h3>
+                            <p class="text-sm text-gray-500">Backend Development</p>
+                        </div>
                     </div>
-                    <!-- Skill Card 6: Git/GitHub (Gray Hover Ring) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-gray-700 ring-offset-2">
-                        <svg class="w-12 h-12 text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h1.5a2.25 2.25 0 002.25-2.25v-1.5a2.25 2.25 0 00-2.25-2.25H13a2.25 2.25 0 00-2.25 2.25v1.5a2.25 2.25 0 002.25 2.25h1.5zm-5-3a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <h3 class="text-xl font-semibold">Git/GitHub</h3>
-                        <p class="text-sm text-gray-500">Version Control</p>
+                    
+                    <!-- Skill Card 6: Git/GitHub (Gray Hover Ring) - STICKER ADDED --><div class="relative bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-gray-700 ring-offset-2 overflow-hidden">
+                         <!-- Sticker Background Layer --><div class="absolute top-1/2 left-1/2 rounded-full w-full h-full bg-gray-300 opacity-40 blur-md z-0 animate-wobble-sticker"></div>
+
+                        <!-- Content Layer --><div class="relative z-10 flex flex-col items-center">
+                            <svg class="w-12 h-12 text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h1.5a2.25 2.25 0 002.25-2.25v-1.5a2.25 2.25 0 00-2.25-2.25H13a2.25 2.25 0 00-2.25 2.25v1.5a2.25 2.25 0 002.25 2.25h1.5zm-5-3a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <h3 class="text-xl font-semibold">Git/GitHub</h3>
+                            <p class="text-sm text-gray-500">Version Control</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section (Updated) -->
-        <section id="projects" class="py-20 bg-subtle-light border-t border-b border-gray-200">
+        <!-- Projects Section (Updated with Lighting Border) --><section id="projects" class="py-20 bg-subtle-light border-t border-b border-gray-200">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-12 text-primary-dark">Featured <span class="text-accent-blue">Projects</span></h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-                    <!-- Project Card 1: Task Manager (Web Development) -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1">
-                        
-                        <!-- Project Icon Design (Clipboard) -->
-                        <div class="h-48 bg-orange-100/30 flex items-center justify-center">
-                            <!-- Clipboard/Task Icon SVG (Orange Theme) -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-orange-500">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                            </svg>
-                        </div>
-
-                        <div class="p-6">
-                            <h3 class="text-2xl font-semibold mb-2">Task Manager</h3>
-                            <p class="text-gray-600 mb-4">A modern, responsive full-stack application for managing team workflows, deadlines, and tracking progress, built for scalability.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="text-xs font-medium bg-blue-100 text-blue-800 px-2 py-1 rounded-full">React</span>
-                                <span class="text-xs font-medium bg-orange-100 text-orange-800 px-2 py-1 rounded-full">Node.js</span>
-                                <span class="text-xs font-medium bg-gray-100 text-gray-800 px-2 py-1 rounded-full">Tailwind CSS</span>
+                    <!-- Project Card 1: Task Manager (Web Development) --><!-- Applying the lighting class here --><div class="project-card-glowing rounded-xl transition duration-300 hover:shadow-2xl hover:scale-[1.01] overflow-hidden">
+                        <!-- Inner content wrapper (relative z-10) to mask the glow and provide solid background --><div class="bg-white relative z-10">
+                            
+                            <!-- Project Icon Design (Clipboard) --><div class="h-48 bg-orange-100/30 flex items-center justify-center">
+                                <!-- Clipboard/Task Icon SVG (Orange Theme) --><svg xmlns="http://www.w3.000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-orange-500">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
                             </div>
-                            <a href="#" class="text-accent-blue font-semibold hover:text-blue-600 transition duration-300">View Details &rarr;</a>
+
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold mb-2">Task Manager</h3>
+                                <p class="text-gray-600 mb-4">A modern, responsive full-stack application for managing team workflows, deadlines, and tracking progress, built for scalability.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="text-xs font-medium bg-blue-100 text-blue-800 px-2 py-1 rounded-full">React</span>
+                                    <span class="text-xs font-medium bg-orange-100 text-orange-800 px-2 py-1 rounded-full">Node.js</span>
+                                    <span class="text-xs font-medium bg-gray-100 text-gray-800 px-2 py-1 rounded-full">Tailwind CSS</span>
+                                </div>
+                                <a href="#" class="text-accent-blue font-semibold hover:text-blue-600 transition duration-300">View Details &rarr;</a>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Project Card 2: Data Analyzer (Database Management) -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1">
-                        
-                         <!-- Project Icon Design (Database) -->
-                        <div class="h-48 bg-cyan-100/30 flex items-center justify-center">
-                            <!-- Database Icon SVG (Cyan Theme) -->
-                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-cyan-600">
-                                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                                <path d="M3 12a9 3 0 0 0 18 0"></path>
-                                <path d="M3 19a9 3 0 0 0 18 0"></path>
-                                <path d="M3 5v14"></path>
-                                <path d="M21 5v14"></path>
-                            </svg>
-                        </div>
-
-                        <div class="p-6">
-                            <h3 class="text-2xl font-semibold mb-2">Data Analyzer</h3>
-                            <p class="text-gray-600 mb-4">A high-performance system for complex querying, analysis, and visualization of massive datasets using PostgreSQL and Python.</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">PostgreSQL</span>
-                                <span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-1 rounded-full">Python</span>
-                                <span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Data Viz</span>
+                    <!-- Project Card 2: Data Analyzer (Database Management) --><!-- Applying the lighting class here --><div class="project-card-glowing rounded-xl transition duration-300 hover:shadow-2xl hover:scale-[1.01] overflow-hidden">
+                         <!-- Inner content wrapper (relative z-10) to mask the glow and provide solid background --><div class="bg-white relative z-10">
+                            
+                             <!-- Project Icon Design (Database) --><div class="h-48 bg-cyan-100/30 flex items-center justify-center">
+                                <!-- Database Icon SVG (Cyan Theme) --><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-cyan-600">
+                                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                    <path d="M3 12a9 9 0 0 0 18 0"></path>
+                                    <path d="M3 19a9 9 0 0 0 18 0"></path>
+                                    <path d="M3 5v14"></path>
+                                    <path d="M21 5v14"></path>
+                                </svg>
                             </div>
-                            <a href="#" class="text-accent-blue font-semibold hover:text-blue-600 transition duration-300">View Details &rarr;</a>
+
+                            <div class="p-6">
+                                <h3 class="text-2xl font-semibold mb-2">Data Analyzer</h3>
+                                <p class="text-gray-600 mb-4">A high-performance system for complex querying, analysis, and visualization of massive datasets using PostgreSQL and Python.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">PostgreSQL</span>
+                                    <span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-1 rounded-full">Python</span>
+                                    <span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Data Viz</span>
+                                </div>
+                                <a href="#" class="text-accent-blue font-semibold hover:text-blue-600 transition duration-300">View Details &rarr;</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-20">
+        <!-- Contact Section --><section id="contact" class="py-20 bg-slate-100">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-12 text-primary-dark">Get In <span class="text-accent-blue">Touch</span></h2>
 
@@ -247,8 +330,7 @@
                             Send Message
                         </button>
 
-                        <!-- Response Area -->
-                        <div id="response-container" class="mt-4 hidden p-4 rounded-lg border border-gray-200 bg-subtle-light">
+                        <!-- Response Area --><div id="response-container" class="mt-4 hidden p-4 rounded-lg border border-gray-200 bg-subtle-light">
                             <p class="font-semibold text-primary-dark mb-2">My Assistant Says:</p>
                             <div id="llm-response" class="text-gray-700 italic min-h-[2rem]"></div>
                             <div id="loading-indicator" class="hidden flex items-center text-accent-blue mt-2">
@@ -260,8 +342,7 @@
                             </div>
                         </div>
 
-                        <!-- Error Modal Placeholder -->
-                        <div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-[999]">
+                        <!-- Error Modal Placeholder --><div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-[999]">
                             <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
                                 <h3 class="text-xl font-bold text-red-600 mb-3">Error</h3>
                                 <p id="error-message" class="text-gray-700 mb-4"></p>
@@ -274,16 +355,14 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-primary-dark py-10">
+    <!-- Footer --><footer class="bg-primary-dark py-10">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <p>&copy; 2025 Maneesh Portfolio</p>
             <p class="mt-2 text-sm">Built with HTML, Tailwind CSS, and powered by Gemini.</p>
         </div>
     </footer>
 
-    <!-- JavaScript for Interactivity and Gemini API Integration -->
-    <script>
+    <!-- JavaScript for Interactivity and Gemini API Integration --><script>
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const contactForm = document.getElementById('contact-form');
@@ -420,6 +499,7 @@
 
 </body>
 </html>
+
 
 
 
