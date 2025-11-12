@@ -3,293 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Maneesh Thati</title>
+    <title>Maneesh Thati | Web Development Portfolio</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font family -->
     <style>
+        /* Custom Font and Scroll Behavior */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* NEW COLOR PALETTE: Bright Mint Background, Electric Blue & Orange Accents */
+        :root {
+            --bg-color: #F0FDF4; /* Very Pale Mint Green (Main Site Background) */
+            --hero-bg-darker: #E0F2F1; /* Slightly darker background for Hero section */
+            --primary-color: #1D4ED8; /* Electric Blue (Primary Action) */
+            --secondary-color: #F97316; /* Bright Orange (Secondary Accent) */
+            --text-color: #1E293B; /* Dark Slate for contrast */
+            --card-bg: #FFFFFF; /* Pure White Card Background */
+            --border-color: #E2E8F0; /* Light Gray Border */
+
+            /* UPDATED ANIMATION COLORS: Deep Forest Green and Deep Navy Blue */
+            --anim-color-1: #065F46; /* Deep Forest Green */
+            --anim-color-2: #1E3A8A; /* Deep Navy Blue */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             scroll-behavior: smooth;
         }
-        /* Custom Message Box Styling (for form submission success) */
-        #messageBox {
-            transition: opacity 0.3s ease-in-out;
-            z-index: 50;
+        
+        /* Navbar, Section backgrounds, and Footer adjustments for bright theme */
+        .bg-light-surface {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Soft shadow on light surface */
+        }
+        .bg-section-break {
+            background-color: #F8FAFCA0; /* Very light, slightly transparent background for section breaks */
+        }
+
+        /* --- CSS ANIMATIONS --- */
+
+        /* 1. Floating Animation for Hero Text */
+        @keyframes float-y {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float-slow {
+            animation: float-y 8s infinite alternate ease-in-out;
+        }
+        .animate-float-med {
+            animation: float-y 7s infinite alternate ease-in-out;
+        }
+
+        /* 2. Moving Background Decoration Keyframes */
+        @keyframes move-deco-1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+            33% { transform: translate(15vw, -10vh) scale(1.1); opacity: 0.7; }
+            66% { transform: translate(-10vw, 5vh) scale(0.9); opacity: 0.8; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+        }
+
+        @keyframes move-deco-2 {
+            0% { transform: translate(0, 0) scale(1.2); opacity: 0.8; }
+            40% { transform: translate(-20vw, 15vh) scale(1); opacity: 0.6; }
+            75% { transform: translate(5vw, -5vh) scale(1.3); opacity: 0.9; }
+            100% { transform: translate(0, 0) scale(1.2); opacity: 0.8; }
+        }
+
+        /* 3. Decorative Background Shapes in Hero Section */
+        #hero {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--hero-bg-darker); /* Applying the slightly darker color */
+        }
+        #hero::before, #hero::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0; /* Keep behind content */
+            filter: blur(120px); /* Slightly more blur */
+            pointer-events: none;
+        }
+
+        /* Decoration 1 (Deep Forest Green) - top left */
+        #hero::before {
+            top: 5%;
+            left: 5%;
+            width: 250px;
+            height: 250px;
+            background-color: var(--anim-color-1); /* Deep Forest Green */
+            opacity: 0.6; /* Soften the glow */
+            animation: move-deco-1 20s infinite alternate ease-in-out;
+        }
+
+        /* Decoration 2 (Deep Navy Blue) - bottom right */
+        #hero::after {
+            bottom: 5%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            background-color: var(--anim-color-2); /* Deep Navy Blue */
+            opacity: 0.5; /* Soften the glow */
+            animation: move-deco-2 25s infinite alternate ease-in-out;
+        }
+        
+        /* Utility class for subtle entrance animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar for aesthetics (optional) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        /* Specific styles for card hover, using the primary blue accent */
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(29, 78, 216, 0.4), 0 4px 6px -2px rgba(29, 78, 216, 0.2);
+            border-color: var(--primary-color); /* Highlight border on hover */
+        }
+
+        /* Input focus styles */
+        .input-focus:focus {
+             --tw-ring-color: var(--primary-color); 
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#111827', /* Gray 900 */
-                        'accent-color': '#6366f1', /* Indigo 500 */
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-primary-dark text-gray-100 antialiased">
+<body class="antialiased">
 
-    <!-- Message Box (Non-alert replacement) -->
-    <div id="messageBox" class="fixed top-5 right-5 p-4 rounded-lg bg-green-600 text-white shadow-lg opacity-0 pointer-events-none">
-        Message sent successfully!
-    </div>
-
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 bg-primary-dark bg-opacity-95 shadow-xl backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo/Name -->
-                <div class="flex-shrink-0">
-                    <a href="#hero" class="text-2xl font-bold text-accent-color tracking-wide">T.Maneesh</a>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#about" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">About</a>
-                        <a href="#skills" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Skills</a>
-                        <a href="#projects" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Projects</a>
-                        <a href="#contact" class="bg-accent-color text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 hover:bg-indigo-600">Contact</a>
-                    </div>
-                </nav>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-                </div>
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-light-surface backdrop-blur-sm border-b border-gray-200">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold tracking-tight" style="color: var(--primary-color);">Maneesh</a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#skills" class="text-gray-600 hover:text-gray-900 transition duration-300">Skills</a>
+                <a href="#projects" class="text-gray-600 hover:text-gray-900 transition duration-300">Projects</a>
+                <a href="#resume" class="text-gray-600 hover:text-gray-900 transition duration-300">Resume</a>
+                <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-300">Contact</a>
             </div>
-        </div>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#about" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
-                <a href="#skills" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Skills</a>
-                <a href="#projects" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Projects</a>
-                <a href="#contact" class="bg-accent-color text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-600" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button id="menu-button" class="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu (Hidden by Default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Projects</a>
+                <a href="#resume" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Resume</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Contact</a>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-
-        <!-- Hero/About Section -->
-        <section id="about" class="py-16 md:py-24" data-aos="fade-in">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <!-- Avatar -->
-                <div class="flex-shrink-0">
-                    <img class="h-40 w-40 md:h-64 md:w-64 rounded-full object-cover ring-4 ring-accent-color shadow-2xl" src="https://placehold.co/256x256/1f2937/d1d5db?text=MT" onerror="this.onerror=null;this.src='https://placehold.co/256x256/1f2937/d1d5db?text=MT';" alt="Professional Avatar">
-                </div>
-                <!-- Text Content -->
-                <div class="md:flex-grow text-center md:text-left">
-                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-4">
-                        Hi, I'm <span class="text-accent-color">Maneesh Thati</span>.
-                    </h1>
-                    <p class="text-xl text-gray-400 mb-6">
-                        A passionate Web Developer Developer specializing in creating responsive, scalable, and user-friendly web applications. With a strong foundation in modern JavaScript frameworks and cloud technologies, I turn complex ideas into elegant digital solutions.
-                    </p>
-                    <div class="flex justify-center md:justify-start space-x-4">
-                        <a href="#projects" class="px-6 py-3 bg-accent-color text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300 transform hover:scale-105">View Projects</a>
-                        <a href="#" class="px-6 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-800 transition duration-300 transform hover:scale-105">Download Resume</a>
-                    </div>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 min-h-screen flex items-center justify-center">
+            <div class="text-center max-w-4xl fade-in relative z-10">
+                <p class="text-lg font-medium tracking-wider mb-2" style="color: var(--secondary-color);">Hello, I'm</p>
+                <!-- Added floating animation to H1 and H2 -->
+                <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold mb-4 leading-tight text-gray-900 animate-float-slow" style="animation-delay: 0.1s;">Maneesh Thati</h1>
+                <h2 class="text-2xl sm:text-3xl font-light mb-8 text-gray-600 animate-float-med" style="animation-delay: 0.2s;">
+                    A Passionate <span class="font-bold" style="color: var(--primary-color);">Web Developer</span> & Digital Builder
+                </h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-500 mb-10">
+                    I specialize in crafting high-performance, responsive, and visually appealing web experiences, from concept to deployment. Let's build something amazing together.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#projects" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-white bg-gray-900 hover:bg-gray-700 transition duration-300 active:scale-[0.98]">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg active:scale-[0.98]"
+                       style="background-color: var(--primary-color); color: white; border: 2px solid var(--primary-color);"
+                       onmouseover="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--secondary-color')"
+                       onmouseout="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--primary-color')">
+                        Get In Touch
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-16 md:py-24">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-100"> Expertise</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-
-                <!-- Skill Card 1: Frontend -->
-                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-3xl text-accent-color mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+        <section id="skills" class="py-20 bg-section-break">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-center mb-4 fade-in" style="color: var(--primary-color);">Expertise</h2>
+                <p class="text-xl text-center text-gray-500 mb-12 fade-in">Technologies I excel at</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    <!-- Frontend -->
+                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--secondary-color);">
+                        <div class="text-2xl font-bold mb-2" style="color: var(--secondary-color);">Frontend</div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>JavaScript (ES6+)</li>
+                            <li>React / Next.js</li>
+                            <li>HTML5 / CSS3</li>
+                            <li>Tailwind CSS / SCSS</li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Web Development</h3>
-                    <p class="text-gray-400 text-sm">React, Vue.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive Design.</p>
-                </div>
-
-                <!-- Skill Card 2: Backend -->
-                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-3xl text-accent-color mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
-                   
-
-                <!-- Skill Card 3: Databases -->
-                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-3xl text-accent-color mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10M19 7v10M5 16h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                    <!-- Backend -->
+                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--primary-color);">
+                        <div class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Backend</div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>Node.js / Express</li>
+                            <li>Python / Django</li>
+                            <li>REST APIs</li>
+                            <li>GraphQL</li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Database Management</h3>
-                    <p class="text-gray-400 text-sm">PostgreSQL, MongoDB, SQL, Firebase/Firestore, database optimization and schema design.</p>
-                </div>
-
-                <!-- Skill Card 4: Tools/DevOps -->
-                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
-                    <div class="text-3xl text-accent-color mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <!-- Database -->
+                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--secondary-color);">
+                        <div class="text-2xl font-bold mb-2" style="color: var(--secondary-color);">Databases</div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>MongoDB / Firestore</li>
+                            <li>PostgreSQL</li>
+                            <li>MySQL</li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Tools & DevOps</h3>
-                    <p class="text-gray-400 text-sm">Git, GitHub/GitLab, Docker, CI/CD, AWS/Google Cloud, Webpack/Vite.</p>
+                    <!-- Tools & DevOps -->
+                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--primary-color);">
+                        <div class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Tools & DevOps</div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>Git / GitHub</li>
+                            <li>Docker</li>
+                            <li>AWS / Vercel</li>
+                            <li>Webpack / Vite</li>
+                        </ul>
+                    </div>
                 </div>
-
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-16 md:py-24">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-100">My Projects</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Project Card 1 -->
-                <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden group">
-                    <img class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300" src="https://placehold.co/600x400/374151/d1d5db?text=SaaS+Platform" alt="SaaS Platform Mockup">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-accent-color mb-3">Website</h3>
-                        <p class="text-gray-400 mb-4">A powerful, real-time analytics platform built with React and a Node.js backend. Features customizable charts (using D3.js) and role-based access control.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">React</span>
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Node.js</span>
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">PostgreSQL</span>
+        <section id="projects" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-center mb-4 fade-in" style="color: var(--primary-color);">Selected Projects</h2>
+                <p class="text-xl text-center text-gray-500 mb-12 fade-in">A showcase of my recent work and capabilities</p>
+                
+                <div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Project Card 1 -->
+                    <div class="project-card p-6 bg-card-bg rounded-xl shadow-lg transition duration-500 transform border border-border-color">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--secondary-color);">SaaS Dashboard</h3>
+                        <p class="text-gray-600 mb-4">A complete front-end dashboard built with React and Tailwind CSS, featuring interactive charts, user management, and a dark/light mode toggle.</p>
+                        <p class="text-sm text-gray-400 mb-4">Tech: React, TypeScript, Tailwind, D3.js</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="font-medium hover:underline" style="color: var(--primary-color);">Live Demo &rarr;</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-900">GitHub</a>
                         </div>
-                        <a href="#" class="inline-block text-sm font-semibold text-white bg-indigo-500 px-3 py-1.5 rounded-lg hover:bg-indigo-600 transition duration-300">View Details &rarr;</a>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="project-card p-6 bg-card-bg rounded-xl shadow-lg transition duration-500 transform border border-border-color">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--primary-color);">E-commerce API</h3>
+                        <p class="text-gray-600 mb-4">A robust, scalable backend API for an e-commerce platform handling user authentication, product catalog, and order processing using Node.js and MongoDB.</p>
+                        <p class="text-sm text-gray-400 mb-4">Tech: Node.js, Express, MongoDB, Jest</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="font-medium hover:underline" style="color: var(--primary-color);">Documentation &rarr;</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-900">GitHub</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Card 3 -->
+                    <div class="project-card p-6 bg-card-bg rounded-xl shadow-lg transition duration-500 transform border border-border-color">
+                        <h3 class="text-2xl font-bold mb-3" style="color: var(--secondary-color);">Portfolio Generator</h3>
+                        <p class="text-gray-600 mb-4">A Python/Django application that allows users to input their data and generate a custom, pre-styled portfolio website template ready for deployment.</p>
+                        <p class="text-sm text-gray-400 mb-4">Tech: Python, Django, HTML Templating, SCSS</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="font-medium hover:underline" style="color: var(--primary-color);">View Code &rarr;</a>
+                            <a href="#" class="text-gray-500 hover:text-gray-900">GitHub</a>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Project Card 2 -->
-                <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden group">
-                    <img class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300" src="https://placehold.co/600x400/374151/d1d5db?text=E-commerce+Store" alt="E-commerce Store Mockup">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-accent-color mb-3">Modern E-commerce Site</h3>
-                        <p class="text-gray-400 mb-4">Full-featured e-commerce application using Vue.js for the frontend, complete with Stripe integration and a custom cart management system.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Vue.js</span>
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Express</span>
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Stripe API</span>
-                        </div>
-                        <a href="#" class="inline-block text-sm font-semibold text-white bg-indigo-500 px-3 py-1.5 rounded-lg hover:bg-indigo-600 transition duration-300">View Details &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden group">
-                    <img class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300" src="https://placehold.co/600x400/374151/d1d5db?text=Mobile+App" alt="Mobile App Mockup">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-accent-color mb-3">Cross-Platform Mobile App</h3>
-                        <p class="text-gray-400 mb-4">A task management mobile application prototype developed using React Native, featuring offline data synchronization and user authentication.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">React Native</span>
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Firebase</span>
-                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">UX/UI</span>
-                        </div>
-                        <a href="#" class="inline-block text-sm font-semibold text-white bg-indigo-500 px-3 py-1.5 rounded-lg hover:bg-indigo-600 transition duration-300">View Details &rarr;</a>
-                    </div>
+        <!-- Resume/CV Section -->
+        <section id="resume" class="py-20 bg-section-break">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
+                <h2 class="text-4xl font-extrabold mb-4 fade-in" style="color: var(--primary-color);">My Resume</h2>
+                <p class="text-xl text-gray-500 mb-8 fade-in">See my full professional history and qualifications.</p>
+                
+                <div class="p-8 bg-card-bg rounded-xl shadow-2xl border border-border-color">
+                    <p class="text-2xl font-light mb-6 text-gray-700">
+                        A detailed PDF version of my CV is available for download.
+                    </p>
+                    <button id="download-resume-btn" 
+                        class="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg shadow-lg transition duration-300 transform hover:scale-[1.01] active:scale-[0.98]"
+                        style="background-color: var(--secondary-color); color: white;"
+                        onmouseover="this.style.backgroundColor='var(--primary-color)';"
+                        onmouseout="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--secondary-color');">
+                        
+                        <!-- Inline SVG Download Icon (Lucide Icon: Download) -->
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Download Resume (PDF)
+                    </button>
+                    <!-- Simulated download message area -->
+                    <p id="download-message" class="mt-4 text-sm font-medium transition duration-300" style="color: var(--primary-color); height: 1.5em;"></p>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-24">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-100">Get In Touch</h2>
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+                <h2 class="text-4xl font-extrabold text-center mb-4 fade-in" style="color: var(--primary-color);">Let's Connect</h2>
+                <p class="text-xl text-center text-gray-500 mb-12 fade-in">I am open to new opportunities and collaborations.</p>
 
-            <div class="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-2xl">
-                <form id="contactForm" class="space-y-6">
+                <form id="contact-form" class="space-y-6 p-8 bg-card-bg rounded-xl shadow-2xl border border-border-color">
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
-                        <input type="text" id="name" name="name" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-accent-color focus:border-accent-color transition duration-150">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full p-3 rounded-lg bg-white border border-border-color focus:ring-1 input-focus"
+                               style="color: var(--text-color);">
                     </div>
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
-                        <input type="email" id="email" name="email" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-accent-color focus:border-accent-color transition duration-150">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full p-3 rounded-lg bg-white border border-border-color focus:ring-1 input-focus"
+                               style="color: var(--text-color);">
                     </div>
                     <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
-                        <textarea id="message" name="message" rows="5" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-accent-color focus:border-accent-color transition duration-150"></textarea>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                        <textarea id="message" name="message" rows="4" required
+                                  class="w-full p-3 rounded-lg bg-white border border-border-color focus:ring-1 input-focus"
+                                  style="color: var(--text-color);"></textarea>
                     </div>
-                    <button type="submit" class="w-full px-4 py-3 bg-accent-color text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.01]">
+                    
+                    <button type="submit" id="submit-button"
+                        class="w-full py-3 rounded-lg text-lg font-semibold transition duration-300 transform hover:scale-[1.01] active:scale-[0.98] shadow-lg"
+                        style="background-color: var(--primary-color); color: white;"
+                        onmouseover="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--secondary-color')"
+                        onmouseout="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--primary-color')">
                         Send Message
                     </button>
+                    
+                    <!-- Submission Status Message -->
+                    <p id="form-status" class="text-center font-medium h-6"></p>
                 </form>
             </div>
-            
-            <div class="mt-8 text-center text-gray-400">
-                <p class="mb-2">Find me on other platforms:</p>
-                <div class="flex justify-center space-x-6">
-                    <!-- GitHub Icon -->
-                    <a href="#" class="text-gray-400 hover:text-accent-color transition duration-300">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.417 2.865 8.17 6.824 9.488.599.111.798-.233.798-.517 0-.25-.014-1.017-.014-1.99 0-.69.27-1.423.77-1.99 0 0 1.25-.337 4.05-1.318 0 0 2.2-.44 2.2-1.74 0-1.298-1.045-2.227-2.073-2.52.28-.797.94-1.602 1.37-2.659.43-.88.197-1.63-.5-2.02.66-.197 1.36-.677 1.36-2.126 0-1.782-1.16-3.048-2.69-3.454.43-.72.67-1.65.67-2.61.64.19 1.44.33 2.15.33 1.05 0 2.1-.2 3.09-.6 0 0 .55 1.15.55 2.15 0 1.95-1.15 3.15-2.69 3.55.05.3.1.6.1.9 0 .4-.01 1.2-.01 1.45 0 .28.2.62.8.52 3.96-1.318 6.82-5.07 6.82-9.488C22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
-                    </a>
-                    <!-- LinkedIn Icon -->
-                    <a href="#" class="text-gray-400 hover:text-accent-color transition duration-300">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.565-4 0v5.604h-3v-11h3v1.765c1.396-2.423 6-2.316 6 2.752v6.483z" /></svg>
-                    </a>
-                </div>
-            </div>
         </section>
-
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-700 mt-16">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-500 text-sm">&copy; 2025 Maneesh Thati. All rights reserved. | Built with HTML and Tailwind CSS.</p>
+    <footer class="bg-light-surface py-8 border-t border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p class="mb-2">Designed and Built by Maneesh Thati &copy; 2024</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="hover:text-gray-900 transition duration-300" style="color: var(--primary-color);">GitHub</a>
+                <a href="#" class="hover:text-gray-900 transition duration-300" style="color: var(--primary-color);">LinkedIn</a>
+                <a href="mailto:maneesh.thati@example.com" class="hover:text-gray-900 transition duration-300" style="color: var(--primary-color);">Email</a>
+            </div>
         </div>
     </footer>
 
-
     <script>
-        // JavaScript for mobile menu toggle and form submission
-
         document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const menuButton = document.getElementById('menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const contactForm = document.getElementById('contactForm');
-            const messageBox = document.getElementById('messageBox');
+            const form = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            const downloadBtn = document.getElementById('download-resume-btn');
+            const downloadMsg = document.getElementById('download-message');
+            const navLinks = document.querySelectorAll('#mobile-menu a');
+            const fadeInElements = document.querySelectorAll('.fade-in');
 
-            // 1. Mobile Menu Toggle
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
+            // --- 1. Mobile Menu Toggle ---
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
                 });
-            }
+            });
 
-            // 2. Form Submission Handler (simulated)
-            if (contactForm && messageBox) {
-                contactForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
+            // --- 2. Contact Form Handling ---
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                formStatus.textContent = 'Sending...';
+                formStatus.style.color = getComputedStyle(document.body).getPropertyValue('--primary-color');
 
-                    // Simulate network request delay
-                    // In a real application, you would make a fetch() request here.
-                    
-                    // Show success message box
-                    messageBox.classList.remove('opacity-0', 'pointer-events-none');
-                    messageBox.classList.add('opacity-100');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
 
-                    // Reset form fields
-                    contactForm.reset();
+                // Simulate API submission delay (replace with actual fetch if using a real backend)
+                await new Promise(resolve => setTimeout(resolve, 1500));
 
-                    // Hide message box after 4 seconds
-                    setTimeout(() => {
-                        messageBox.classList.remove('opacity-100');
-                        messageBox.classList.add('opacity-0', 'pointer-events-none');
-                    }, 4000);
+                console.log('Form Submitted:', data);
 
-                    console.log('Form submission simulated. Message sent.');
+                // Assuming success for demonstration
+                formStatus.textContent = 'Message sent successfully! I will be in touch soon.';
+                formStatus.style.color = getComputedStyle(document.body).getPropertyValue('--secondary-color');
+                form.reset();
+                
+                // Clear message after a few seconds
+                setTimeout(() => {
+                    formStatus.textContent = '';
+                }, 5000);
+            });
+            
+            // --- 3. Resume Download Button Handler ---
+            downloadBtn.addEventListener('click', () => {
+                // In a real application, you would trigger a file download here.
+                // For this mock, we just show a message.
+                downloadMsg.textContent = 'Simulated download started. Check the console for details.';
+                downloadMsg.style.color = getComputedStyle(document.body).getPropertyValue('--secondary-color');
+
+                setTimeout(() => {
+                    downloadMsg.textContent = '';
+                }, 3000);
+            });
+
+            // --- 4. Scroll-based Fade-In Animation (for .fade-in elements) ---
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% of item must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing once it's visible
+                    }
                 });
-            }
+            }, observerOptions);
+
+            fadeInElements.forEach(el => {
+                observer.observe(el);
+            });
         });
     </script>
+
 </body>
 </html>
+
 
