@@ -1,12 +1,295 @@
-<!DOCTYPE.html>
-<html>
-<heead>
-<title>Sample Output</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Maneesh Thati</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom Message Box Styling (for form submission success) */
+        #messageBox {
+            transition: opacity 0.3s ease-in-out;
+            z-index: 50;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#111827', /* Gray 900 */
+                        'accent-color': '#6366f1', /* Indigo 500 */
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<p>Welcome to the website of Maneesh</p>
-  <p>Welcome to the website of Maneesh</p>
-  <p>Welcome to the website of Maneesh</p>
+<body class="bg-primary-dark text-gray-100 antialiased">
+
+    <!-- Message Box (Non-alert replacement) -->
+    <div id="messageBox" class="fixed top-5 right-5 p-4 rounded-lg bg-green-600 text-white shadow-lg opacity-0 pointer-events-none">
+        Message sent successfully!
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 bg-primary-dark bg-opacity-95 shadow-xl backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo/Name -->
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-2xl font-bold text-accent-color tracking-wide">T.Maneesh</a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#about" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">About</a>
+                        <a href="#skills" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Skills</a>
+                        <a href="#projects" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150">Projects</a>
+                        <a href="#contact" class="bg-accent-color text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 hover:bg-indigo-600">Contact</a>
+                    </div>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+                <a href="#skills" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Skills</a>
+                <a href="#projects" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Projects</a>
+                <a href="#contact" class="bg-accent-color text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-indigo-600" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <!-- Hero/About Section -->
+        <section id="about" class="py-16 md:py-24" data-aos="fade-in">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <!-- Avatar -->
+                <div class="flex-shrink-0">
+                    <img class="h-40 w-40 md:h-64 md:w-64 rounded-full object-cover ring-4 ring-accent-color shadow-2xl" src="https://placehold.co/256x256/1f2937/d1d5db?text=MT" onerror="this.onerror=null;this.src='https://placehold.co/256x256/1f2937/d1d5db?text=MT';" alt="Professional Avatar">
+                </div>
+                <!-- Text Content -->
+                <div class="md:flex-grow text-center md:text-left">
+                    <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-4">
+                        Hi, I'm <span class="text-accent-color">Maneesh Thati</span>.
+                    </h1>
+                    <p class="text-xl text-gray-400 mb-6">
+                        A passionate Web Developer Developer specializing in creating responsive, scalable, and user-friendly web applications. With a strong foundation in modern JavaScript frameworks and cloud technologies, I turn complex ideas into elegant digital solutions.
+                    </p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#projects" class="px-6 py-3 bg-accent-color text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300 transform hover:scale-105">View Projects</a>
+                        <a href="#" class="px-6 py-3 border border-gray-600 text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-800 transition duration-300 transform hover:scale-105">Download Resume</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-16 md:py-24">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-100"> Expertise</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+
+                <!-- Skill Card 1: Frontend -->
+                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-3xl text-accent-color mb-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Web Development</h3>
+                    <p class="text-gray-400 text-sm">React, Vue.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive Design.</p>
+                </div>
+
+                <!-- Skill Card 2: Backend -->
+                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-3xl text-accent-color mb-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                   
+
+                <!-- Skill Card 3: Databases -->
+                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-3xl text-accent-color mb-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10M19 7v10M5 16h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Database Management</h3>
+                    <p class="text-gray-400 text-sm">PostgreSQL, MongoDB, SQL, Firebase/Firestore, database optimization and schema design.</p>
+                </div>
+
+                <!-- Skill Card 4: Tools/DevOps -->
+                <div class="p-6 bg-gray-800 rounded-xl shadow-lg hover:shadow-accent-color/50 transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-3xl text-accent-color mb-3">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Tools & DevOps</h3>
+                    <p class="text-gray-400 text-sm">Git, GitHub/GitLab, Docker, CI/CD, AWS/Google Cloud, Webpack/Vite.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-16 md:py-24">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-100">My Projects</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Project Card 1 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden group">
+                    <img class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300" src="https://placehold.co/600x400/374151/d1d5db?text=SaaS+Platform" alt="SaaS Platform Mockup">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-accent-color mb-3">Website</h3>
+                        <p class="text-gray-400 mb-4">A powerful, real-time analytics platform built with React and a Node.js backend. Features customizable charts (using D3.js) and role-based access control.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">React</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Node.js</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">PostgreSQL</span>
+                        </div>
+                        <a href="#" class="inline-block text-sm font-semibold text-white bg-indigo-500 px-3 py-1.5 rounded-lg hover:bg-indigo-600 transition duration-300">View Details &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden group">
+                    <img class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300" src="https://placehold.co/600x400/374151/d1d5db?text=E-commerce+Store" alt="E-commerce Store Mockup">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-accent-color mb-3">Modern E-commerce Site</h3>
+                        <p class="text-gray-400 mb-4">Full-featured e-commerce application using Vue.js for the frontend, complete with Stripe integration and a custom cart management system.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Vue.js</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Express</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Stripe API</span>
+                        </div>
+                        <a href="#" class="inline-block text-sm font-semibold text-white bg-indigo-500 px-3 py-1.5 rounded-lg hover:bg-indigo-600 transition duration-300">View Details &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden group">
+                    <img class="w-full h-48 object-cover group-hover:opacity-75 transition duration-300" src="https://placehold.co/600x400/374151/d1d5db?text=Mobile+App" alt="Mobile App Mockup">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-accent-color mb-3">Cross-Platform Mobile App</h3>
+                        <p class="text-gray-400 mb-4">A task management mobile application prototype developed using React Native, featuring offline data synchronization and user authentication.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">React Native</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">Firebase</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700 text-indigo-300">UX/UI</span>
+                        </div>
+                        <a href="#" class="inline-block text-sm font-semibold text-white bg-indigo-500 px-3 py-1.5 rounded-lg hover:bg-indigo-600 transition duration-300">View Details &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-100">Get In Touch</h2>
+
+            <div class="max-w-3xl mx-auto bg-gray-800 p-8 rounded-xl shadow-2xl">
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-accent-color focus:border-accent-color transition duration-150">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-accent-color focus:border-accent-color transition duration-150">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                        <textarea id="message" name="message" rows="5" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-accent-color focus:border-accent-color transition duration-150"></textarea>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-3 bg-accent-color text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.01]">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <div class="mt-8 text-center text-gray-400">
+                <p class="mb-2">Find me on other platforms:</p>
+                <div class="flex justify-center space-x-6">
+                    <!-- GitHub Icon -->
+                    <a href="#" class="text-gray-400 hover:text-accent-color transition duration-300">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.417 2.865 8.17 6.824 9.488.599.111.798-.233.798-.517 0-.25-.014-1.017-.014-1.99 0-.69.27-1.423.77-1.99 0 0 1.25-.337 4.05-1.318 0 0 2.2-.44 2.2-1.74 0-1.298-1.045-2.227-2.073-2.52.28-.797.94-1.602 1.37-2.659.43-.88.197-1.63-.5-2.02.66-.197 1.36-.677 1.36-2.126 0-1.782-1.16-3.048-2.69-3.454.43-.72.67-1.65.67-2.61.64.19 1.44.33 2.15.33 1.05 0 2.1-.2 3.09-.6 0 0 .55 1.15.55 2.15 0 1.95-1.15 3.15-2.69 3.55.05.3.1.6.1.9 0 .4-.01 1.2-.01 1.45 0 .28.2.62.8.52 3.96-1.318 6.82-5.07 6.82-9.488C22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <!-- LinkedIn Icon -->
+                    <a href="#" class="text-gray-400 hover:text-accent-color transition duration-300">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.565-4 0v5.604h-3v-11h3v1.765c1.396-2.423 6-2.316 6 2.752v6.483z" /></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2025 Maneesh Thati. All rights reserved. | Built with HTML and Tailwind CSS.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // JavaScript for mobile menu toggle and form submission
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const contactForm = document.getElementById('contactForm');
+            const messageBox = document.getElementById('messageBox');
+
+            // 1. Mobile Menu Toggle
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 2. Form Submission Handler (simulated)
+            if (contactForm && messageBox) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    // Simulate network request delay
+                    // In a real application, you would make a fetch() request here.
+                    
+                    // Show success message box
+                    messageBox.classList.remove('opacity-0', 'pointer-events-none');
+                    messageBox.classList.add('opacity-100');
+
+                    // Reset form fields
+                    contactForm.reset();
+
+                    // Hide message box after 4 seconds
+                    setTimeout(() => {
+                        messageBox.classList.remove('opacity-100');
+                        messageBox.classList.add('opacity-0', 'pointer-events-none');
+                    }, 4000);
+
+                    console.log('Form submission simulated. Message sent.');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
 
