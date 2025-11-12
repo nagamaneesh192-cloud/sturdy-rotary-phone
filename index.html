@@ -3,462 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maneesh Thati | Web Development Portfolio</title>
+    <title>Maneesh - Web Developer Portfolio</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom Font and Scroll Behavior */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        
-        /* NEW COLOR PALETTE: Bright Mint Background, Electric Blue & Orange Accents */
-        :root {
-            --bg-color: #F0FDF4; /* Very Pale Mint Green (Main Site Background) */
-            --hero-bg-darker: #E0F2F1; /* Slightly darker background for Hero section */
-            --primary-color: #1D4ED8; /* Electric Blue (Primary Action) */
-            --secondary-color: #F97316; /* Bright Orange (Secondary Accent) */
-            --text-color: #1E293B; /* Dark Slate for contrast */
-            --card-bg: #FFFFFF; /* Pure White Card Background */
-            --border-color: #E2E8F0; /* Light Gray Border */
-
-            /* UPDATED ANIMATION COLORS: Deep Forest Green and Deep Navy Blue */
-            --anim-color-1: #065F46; /* Deep Forest Green */
-            --anim-color-2: #1E3A8A; /* Deep Navy Blue */
+    <!-- Configure Tailwind for custom styles and Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#1e293b',
+                        'accent-blue': '#3b82f6',
+                        'subtle-light': '#f1f5f9',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
         }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+    </script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Smooth scrolling for navigation */
+        html {
             scroll-behavior: smooth;
         }
-        
-        /* Navbar, Section backgrounds, and Footer adjustments for bright theme */
-        .bg-light-surface {
-            background-color: var(--card-bg);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Soft shadow on light surface */
-        }
-        .bg-section-break {
-            background-color: #F8FAFCA0; /* Very light, slightly transparent background for section breaks */
+
+        /* Animated Background for Hero Section */
+        .hero-animated-bg {
+            /* Using defined colors: primary-dark, accent-blue, a vibrant green (#6ee7b7), and a soft purple (#a78bfa) */
+            background: linear-gradient(-45deg, #1e293b, #3b82f6, #6ee7b7, #a78bfa);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        /* --- CSS ANIMATIONS --- */
-
-        /* 1. Floating Animation for Hero Text */
-        @keyframes float-y {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-        .animate-float-slow {
-            animation: float-y 8s infinite alternate ease-in-out;
-        }
-        .animate-float-med {
-            animation: float-y 7s infinite alternate ease-in-out;
-        }
-
-        /* 2. Moving Background Decoration Keyframes */
-        @keyframes move-deco-1 {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-            33% { transform: translate(15vw, -10vh) scale(1.1); opacity: 0.7; }
-            66% { transform: translate(-10vw, 5vh) scale(0.9); opacity: 0.8; }
-            100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-        }
-
-        @keyframes move-deco-2 {
-            0% { transform: translate(0, 0) scale(1.2); opacity: 0.8; }
-            40% { transform: translate(-20vw, 15vh) scale(1); opacity: 0.6; }
-            75% { transform: translate(5vw, -5vh) scale(1.3); opacity: 0.9; }
-            100% { transform: translate(0, 0) scale(1.2); opacity: 0.8; }
-        }
-
-        /* 3. Decorative Background Shapes in Hero Section */
-        #hero {
-            position: relative;
-            overflow: hidden;
-            background-color: var(--hero-bg-darker); /* Applying the slightly darker color */
-        }
-        #hero::before, #hero::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            z-index: 0; /* Keep behind content */
-            filter: blur(120px); /* Slightly more blur */
-            pointer-events: none;
-        }
-
-        /* Decoration 1 (Deep Forest Green) - top left */
-        #hero::before {
-            top: 5%;
-            left: 5%;
-            width: 250px;
-            height: 250px;
-            background-color: var(--anim-color-1); /* Deep Forest Green */
-            opacity: 0.6; /* Soften the glow */
-            animation: move-deco-1 20s infinite alternate ease-in-out;
-        }
-
-        /* Decoration 2 (Deep Navy Blue) - bottom right */
-        #hero::after {
-            bottom: 5%;
-            right: 5%;
-            width: 300px;
-            height: 300px;
-            background-color: var(--anim-color-2); /* Deep Navy Blue */
-            opacity: 0.5; /* Soften the glow */
-            animation: move-deco-2 25s infinite alternate ease-in-out;
-        }
-        
-        /* Utility class for subtle entrance animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom scrollbar for aesthetics (optional) */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 4px;
-        }
-
-        /* Specific styles for card hover, using the primary blue accent */
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(29, 78, 216, 0.4), 0 4px 6px -2px rgba(29, 78, 216, 0.2);
-            border-color: var(--primary-color); /* Highlight border on hover */
-        }
-
-        /* Input focus styles */
-        .input-focus:focus {
-             --tw-ring-color: var(--primary-color); 
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-subtle-light text-primary-dark font-sans">
 
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 bg-light-surface backdrop-blur-sm border-b border-gray-200">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-2xl font-bold tracking-tight" style="color: var(--primary-color);">Maneesh</a>
-            
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo/Name -->
+            <a href="#home" class="text-2xl font-extrabold text-primary-dark tracking-tighter">
+                Maneesh
+            </a>
+
             <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8">
-                <a href="#skills" class="text-gray-600 hover:text-gray-900 transition duration-300">Skills</a>
-                <a href="#projects" class="text-gray-600 hover:text-gray-900 transition duration-300">Projects</a>
-                <a href="#resume" class="text-gray-600 hover:text-gray-900 transition duration-300">Resume</a>
-                <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-300">Contact</a>
+                <a href="#home" class="text-gray-600 hover:text-accent-blue transition duration-300">Home</a>
+                <a href="#skills" class="text-gray-600 hover:text-accent-blue transition duration-300">Skills</a>
+                <a href="#projects" class="text-gray-600 hover:text-accent-blue transition duration-300">Projects</a>
+                <a href="#contact" class="text-gray-600 hover:text-accent-blue transition duration-300">Contact</a>
+                <a href="#" class="text-accent-blue font-bold hover:text-primary-dark transition duration-300">Resume</a>
             </div>
 
-            <!-- Mobile Menu Button (Hamburger) -->
-            <button id="menu-button" class="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-primary-dark hover:bg-subtle-light transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
             </button>
         </nav>
-        
-        <!-- Mobile Menu (Hidden by Default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl border-t border-gray-200">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
-                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Skills</a>
-                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Projects</a>
-                <a href="#resume" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Resume</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 w-full text-center">Contact</a>
-            </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <a href="#home" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Home</a>
+            <a href="#skills" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Skills</a>
+            <a href="#projects" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Projects</a>
+            <a href="#contact" class="block py-3 px-6 text-gray-700 hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Contact</a>
+            <a href="#" class="block py-3 px-6 text-accent-blue font-bold hover:bg-subtle-light transition duration-300" onclick="closeMobileMenu()">Resume</a>
         </div>
     </header>
 
+    <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 min-h-screen flex items-center justify-center">
-            <div class="text-center max-w-4xl fade-in relative z-10">
-                <p class="text-lg font-medium tracking-wider mb-2" style="color: var(--secondary-color);">Hello, I'm</p>
-                <!-- Added floating animation to H1 and H2 -->
-                <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold mb-4 leading-tight text-gray-900 animate-float-slow" style="animation-delay: 0.1s;">Maneesh Thati</h1>
-                <h2 class="text-2xl sm:text-3xl font-light mb-8 text-gray-600 animate-float-med" style="animation-delay: 0.2s;">
-                    A Passionate <span class="font-bold" style="color: var(--primary-color);">Web Developer</span> & Digital Builder
-                </h2>
-                <p class="text-xl max-w-3xl mx-auto text-gray-500 mb-10">
-                    I specialize in crafting high-performance, responsive, and visually appealing web experiences, from concept to deployment. Let's build something amazing together.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="#projects" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg text-white bg-gray-900 hover:bg-gray-700 transition duration-300 active:scale-[0.98]">
-                        View Projects
-                    </a>
-                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-lg active:scale-[0.98]"
-                       style="background-color: var(--primary-color); color: white; border: 2px solid var(--primary-color);"
-                       onmouseover="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--secondary-color')"
-                       onmouseout="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--primary-color')">
-                        Get In Touch
-                    </a>
+        <!-- Hero Section with Animated Background -->
+        <section id="home" class="py-20 md:py-32 text-white hero-animated-bg">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto">
+                    
+                    <!-- Highlighted Name -->
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
+                        Hi, I'm <span class="text-yellow-300">Maneesh Thati</span>
+                    </h1>
+                    
+                    <!-- Highlighted Title (Updated color to primary-dark) -->
+                    <p class="text-xl sm:text-2xl text-gray-200 mb-8">
+                        I'm a passionate <span class="font-bold text-primary-dark">Web Developer</span> crafting modern, responsive, and user-friendly digital experiences.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#projects" class="inline-block px-8 py-3 bg-white text-primary-dark font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                            View My Projects
+                        </a>
+                        <a href="#" class="inline-block px-8 py-3 border border-white text-white font-semibold rounded-lg shadow-lg hover:bg-white hover:text-primary-dark transition duration-300 transform hover:scale-105">
+                            Download Resume
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-section-break">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-center mb-4 fade-in" style="color: var(--primary-color);">Expertise</h2>
-                <p class="text-xl text-center text-gray-500 mb-12 fade-in">Technologies I excel at</p>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                    <!-- Frontend -->
-                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--secondary-color);">
-                        <div class="text-2xl font-bold mb-2" style="color: var(--secondary-color);">Frontend</div>
-                        <ul class="space-y-2 text-gray-700">
-                            <li>JavaScript (ES6+)</li>
-                            <li>React / Next.js</li>
-                            <li>HTML5 / CSS3</li>
-                            <li>Tailwind CSS / SCSS</li>
-                        </ul>
+        <section id="skills" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-primary-dark">My Core <span class="text-accent-blue">Skills</span></h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                    <!-- Skill Card 1: HTML5 (Orange Hover Ring) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-orange-500 ring-offset-2">
+                        <svg class="w-12 h-12 text-orange-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4l-4 4 4 4"></path></svg>
+                        <h3 class="text-xl font-semibold">HTML5</h3>
+                        <p class="text-sm text-gray-500">Semantic Structure</p>
                     </div>
-                    <!-- Backend -->
-                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--primary-color);">
-                        <div class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Backend</div>
-                        <ul class="space-y-2 text-gray-700">
-                            <li>Node.js / Express</li>
-                            <li>Python / Django</li>
-                            <li>REST APIs</li>
-                            <li>GraphQL</li>
-                        </ul>
+                    <!-- Skill Card 2: CSS3 & Tailwind (Blue Hover Ring) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-blue-500 ring-offset-2">
+                        <svg class="w-12 h-12 text-blue-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M16 7a2 2 0 012-2h2m0 0l-2 2m2-2l-2-2"></path></svg>
+                        <h3 class="text-xl font-semibold">CSS3/Tailwind</h3>
+                        <p class="text-sm text-gray-500">Responsive Design</p>
                     </div>
-                    <!-- Database -->
-                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--secondary-color);">
-                        <div class="text-2xl font-bold mb-2" style="color: var(--secondary-color);">Databases</div>
-                        <ul class="space-y-2 text-gray-700">
-                            <li>MongoDB / Firestore</li>
-                            <li>PostgreSQL</li>
-                            <li>MySQL</li>
-                        </ul>
+                    <!-- Skill Card 3: JavaScript (ES6+) (Yellow Hover Ring) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-yellow-500 ring-offset-2">
+                        <svg class="w-12 h-12 text-yellow-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8l-3.35 3.35a3 3 0 000 4.3l3.35 3.35m0-11.3l3.35 3.35a3 3 0 010 4.3l-3.35 3.35"></path></svg>
+                        <h3 class="text-xl font-semibold">JavaScript</h3>
+                        <p class="text-sm text-gray-500">DOM Manipulation</p>
                     </div>
-                    <!-- Tools & DevOps -->
-                    <div class="p-6 bg-card-bg rounded-xl shadow-xl transition duration-300 hover:scale-[1.03] hover:border-b-4 border border-border-color" style="border-color: var(--primary-color);">
-                        <div class="text-2xl font-bold mb-2" style="color: var(--primary-color);">Tools & DevOps</div>
-                        <ul class="space-y-2 text-gray-700">
-                            <li>Git / GitHub</li>
-                            <li>Docker</li>
-                            <li>AWS / Vercel</li>
-                            <li>Webpack / Vite</li>
-                        </ul>
+                    <!-- Skill Card 4: React (Cyan Hover Ring) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-cyan-500 ring-offset-2">
+                        <svg class="w-12 h-12 text-cyan-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 4l-4 4 4 4"></path></svg>
+                        <h3 class="text-xl font-semibold">React</h3>
+                        <p class="text-sm text-gray-500">Component-Based UI</p>
+                    </div>
+                    <!-- Skill Card 5: Node.js/Express (Green Hover Ring) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-green-500 ring-offset-2">
+                        <svg class="w-12 h-12 text-green-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1v-3.25m-7.5-3.15V13M12 21h4a2 2 0 002-2v-3a2 2 0 00-2-2H8a2 2 0 00-2 2v3a2 2 0 002 2h4zm-5-3h10a2 2 0 002-2v-5a2 2 0 00-2-2H7a2 2 0 00-2 2v5a2 2 0 002 2z"></path></svg>
+                        <h3 class="text-xl font-semibold">Node.js</h3>
+                        <p class="text-sm text-gray-500">Backend Development</p>
+                    </div>
+                    <!-- Skill Card 6: Git/GitHub (Gray Hover Ring) -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex flex-col items-center text-center hover:ring-4 hover:ring-gray-700 ring-offset-2">
+                        <svg class="w-12 h-12 text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h1.5a2.25 2.25 0 002.25-2.25v-1.5a2.25 2.25 0 00-2.25-2.25H13a2.25 2.25 0 00-2.25 2.25v1.5a2.25 2.25 0 002.25 2.25h1.5zm-5-3a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <h3 class="text-xl font-semibold">Git/GitHub</h3>
+                        <p class="text-sm text-gray-500">Version Control</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-extrabold text-center mb-4 fade-in" style="color: var(--primary-color);">Selected Projects</h2>
-                <p class="text-xl text-center text-gray-500 mb-12 fade-in">A showcase of my recent work and capabilities</p>
-                
-                <div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <!-- Project Card 1 -->
-                    <div class="project-card p-6 bg-card-bg rounded-xl shadow-lg transition duration-500 transform border border-border-color">
-                        <h3 class="text-2xl font-bold mb-3" style="color: var(--secondary-color);">SaaS Dashboard</h3>
-                        <p class="text-gray-600 mb-4">A complete front-end dashboard built with React and Tailwind CSS, featuring interactive charts, user management, and a dark/light mode toggle.</p>
-                        <p class="text-sm text-gray-400 mb-4">Tech: React, TypeScript, Tailwind, D3.js</p>
-                        <div class="flex space-x-4">
-                            <a href="#" class="font-medium hover:underline" style="color: var(--primary-color);">Live Demo &rarr;</a>
-                            <a href="#" class="text-gray-500 hover:text-gray-900">GitHub</a>
-                        </div>
-                    </div>
+        <!-- Projects Section (Updated) -->
+        <section id="projects" class="py-20 bg-subtle-light border-t border-b border-gray-200">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-primary-dark">Featured <span class="text-accent-blue">Projects</span></h2>
 
-                    <!-- Project Card 2 -->
-                    <div class="project-card p-6 bg-card-bg rounded-xl shadow-lg transition duration-500 transform border border-border-color">
-                        <h3 class="text-2xl font-bold mb-3" style="color: var(--primary-color);">E-commerce API</h3>
-                        <p class="text-gray-600 mb-4">A robust, scalable backend API for an e-commerce platform handling user authentication, product catalog, and order processing using Node.js and MongoDB.</p>
-                        <p class="text-sm text-gray-400 mb-4">Tech: Node.js, Express, MongoDB, Jest</p>
-                        <div class="flex space-x-4">
-                            <a href="#" class="font-medium hover:underline" style="color: var(--primary-color);">Documentation &rarr;</a>
-                            <a href="#" class="text-gray-500 hover:text-gray-900">GitHub</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Project Card 3 -->
-                    <div class="project-card p-6 bg-card-bg rounded-xl shadow-lg transition duration-500 transform border border-border-color">
-                        <h3 class="text-2xl font-bold mb-3" style="color: var(--secondary-color);">Portfolio Generator</h3>
-                        <p class="text-gray-600 mb-4">A Python/Django application that allows users to input their data and generate a custom, pre-styled portfolio website template ready for deployment.</p>
-                        <p class="text-sm text-gray-400 mb-4">Tech: Python, Django, HTML Templating, SCSS</p>
-                        <div class="flex space-x-4">
-                            <a href="#" class="font-medium hover:underline" style="color: var(--primary-color);">View Code &rarr;</a>
-                            <a href="#" class="text-gray-500 hover:text-gray-900">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Resume/CV Section -->
-        <section id="resume" class="py-20 bg-section-break">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
-                <h2 class="text-4xl font-extrabold mb-4 fade-in" style="color: var(--primary-color);">My Resume</h2>
-                <p class="text-xl text-gray-500 mb-8 fade-in">See my full professional history and qualifications.</p>
-                
-                <div class="p-8 bg-card-bg rounded-xl shadow-2xl border border-border-color">
-                    <p class="text-2xl font-light mb-6 text-gray-700">
-                        A detailed PDF version of my CV is available for download.
-                    </p>
-                    <button id="download-resume-btn" 
-                        class="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg shadow-lg transition duration-300 transform hover:scale-[1.01] active:scale-[0.98]"
-                        style="background-color: var(--secondary-color); color: white;"
-                        onmouseover="this.style.backgroundColor='var(--primary-color)';"
-                        onmouseout="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--secondary-color');">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                    <!-- Project Card 1: Task Manager (Web Development) -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1">
                         
-                        <!-- Inline SVG Download Icon (Lucide Icon: Download) -->
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                        </svg>
-                        Download Resume (PDF)
-                    </button>
-                    <!-- Simulated download message area -->
-                    <p id="download-message" class="mt-4 text-sm font-medium transition duration-300" style="color: var(--primary-color); height: 1.5em;"></p>
+                        <!-- Project Icon Design (Clipboard) -->
+                        <div class="h-48 bg-orange-100/30 flex items-center justify-center">
+                            <!-- Clipboard/Task Icon SVG (Orange Theme) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-orange-500">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-2">Task Manager</h3>
+                            <p class="text-gray-600 mb-4">A modern, responsive full-stack application for managing team workflows, deadlines, and tracking progress, built for scalability.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs font-medium bg-blue-100 text-blue-800 px-2 py-1 rounded-full">React</span>
+                                <span class="text-xs font-medium bg-orange-100 text-orange-800 px-2 py-1 rounded-full">Node.js</span>
+                                <span class="text-xs font-medium bg-gray-100 text-gray-800 px-2 py-1 rounded-full">Tailwind CSS</span>
+                            </div>
+                            <a href="#" class="text-accent-blue font-semibold hover:text-blue-600 transition duration-300">View Details &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Data Analyzer (Database Management) -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-1">
+                        
+                         <!-- Project Icon Design (Database) -->
+                        <div class="h-48 bg-cyan-100/30 flex items-center justify-center">
+                            <!-- Database Icon SVG (Cyan Theme) -->
+                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-cyan-600">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                <path d="M3 12a9 3 0 0 0 18 0"></path>
+                                <path d="M3 19a9 3 0 0 0 18 0"></path>
+                                <path d="M3 5v14"></path>
+                                <path d="M21 5v14"></path>
+                            </svg>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-2">Data Analyzer</h3>
+                            <p class="text-gray-600 mb-4">A high-performance system for complex querying, analysis, and visualization of massive datasets using PostgreSQL and Python.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">PostgreSQL</span>
+                                <span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-1 rounded-full">Python</span>
+                                <span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Data Viz</span>
+                            </div>
+                            <a href="#" class="text-accent-blue font-semibold hover:text-blue-600 transition duration-300">View Details &rarr;</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
         <section id="contact" class="py-20">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
-                <h2 class="text-4xl font-extrabold text-center mb-4 fade-in" style="color: var(--primary-color);">Let's Connect</h2>
-                <p class="text-xl text-center text-gray-500 mb-12 fade-in">I am open to new opportunities and collaborations.</p>
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-primary-dark">Get In <span class="text-accent-blue">Touch</span></h2>
 
-                <form id="contact-form" class="space-y-6 p-8 bg-card-bg rounded-xl shadow-2xl border border-border-color">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                        <input type="text" id="name" name="name" required
-                               class="w-full p-3 rounded-lg bg-white border border-border-color focus:ring-1 input-focus"
-                               style="color: var(--text-color);">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" name="email" required
-                               class="w-full p-3 rounded-lg bg-white border border-border-color focus:ring-1 input-focus"
-                               style="color: var(--text-color);">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="message" name="message" rows="4" required
-                                  class="w-full p-3 rounded-lg bg-white border border-border-color focus:ring-1 input-focus"
-                                  style="color: var(--text-color);"></textarea>
-                    </div>
-                    
-                    <button type="submit" id="submit-button"
-                        class="w-full py-3 rounded-lg text-lg font-semibold transition duration-300 transform hover:scale-[1.01] active:scale-[0.98] shadow-lg"
-                        style="background-color: var(--primary-color); color: white;"
-                        onmouseover="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--secondary-color')"
-                        onmouseout="this.style.backgroundColor=getComputedStyle(document.body).getPropertyValue('--primary-color')">
-                        Send Message
-                    </button>
-                    
-                    <!-- Submission Status Message -->
-                    <p id="form-status" class="text-center font-medium h-6"></p>
-                </form>
+                <div class="max-w-xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-accent-blue focus:border-accent-blue transition duration-200">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-accent-blue focus:border-accent-blue transition duration-200">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-accent-blue focus:border-accent-blue transition duration-200"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-button" class="w-full px-4 py-3 bg-accent-blue text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600 transition duration-300 disabled:opacity-50" disabled>
+                            Send Message
+                        </button>
+
+                        <!-- Response Area -->
+                        <div id="response-container" class="mt-4 hidden p-4 rounded-lg border border-gray-200 bg-subtle-light">
+                            <p class="font-semibold text-primary-dark mb-2">My Assistant Says:</p>
+                            <div id="llm-response" class="text-gray-700 italic min-h-[2rem]"></div>
+                            <div id="loading-indicator" class="hidden flex items-center text-accent-blue mt-2">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-accent-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Sending...
+                            </div>
+                        </div>
+
+                        <!-- Error Modal Placeholder -->
+                        <div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-[999]">
+                            <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
+                                <h3 class="text-xl font-bold text-red-600 mb-3">Error</h3>
+                                <p id="error-message" class="text-gray-700 mb-4"></p>
+                                <button onclick="document.getElementById('error-modal').classList.add('hidden')" class="w-full px-4 py-2 bg-gray-200 text-primary-dark font-semibold rounded-lg hover:bg-gray-300 transition">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-light-surface py-8 border-t border-gray-200">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p class="mb-2">Designed and Built by Maneesh Thati &copy; 2024</p>
-            <div class="flex justify-center space-x-6">
-                <a href="#" class="hover:text-gray-900 transition duration-300" style="color: var(--primary-color);">GitHub</a>
-                <a href="#" class="hover:text-gray-900 transition duration-300" style="color: var(--primary-color);">LinkedIn</a>
-                <a href="mailto:maneesh.thati@example.com" class="hover:text-gray-900 transition duration-300" style="color: var(--primary-color);">Email</a>
-            </div>
+    <footer class="bg-primary-dark py-10">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2025 Maneesh Portfolio</p>
+            <p class="mt-2 text-sm">Built with HTML, Tailwind CSS, and powered by Gemini.</p>
         </div>
     </footer>
 
+    <!-- JavaScript for Interactivity and Gemini API Integration -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const form = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            const downloadBtn = document.getElementById('download-resume-btn');
-            const downloadMsg = document.getElementById('download-message');
-            const navLinks = document.querySelectorAll('#mobile-menu a');
-            const fadeInElements = document.querySelectorAll('.fade-in');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const contactForm = document.getElementById('contact-form');
+        const submitButton = document.getElementById('submit-button');
+        const llmResponseDiv = document.getElementById('llm-response');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const responseContainer = document.getElementById('response-container');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
 
-            // --- 1. Mobile Menu Toggle ---
-            menuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
-            // Close mobile menu when a link is clicked
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
+        // --- Auth Readiness Check for Form Submission ---
+        function checkFormValidity() {
+            const isFormValid = contactForm.checkValidity();
+            submitButton.disabled = !isFormValid;
+        }
 
-            // --- 2. Contact Form Handling ---
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                formStatus.textContent = 'Sending...';
-                formStatus.style.color = getComputedStyle(document.body).getPropertyValue('--primary-color');
+        contactForm.addEventListener('input', checkFormValidity);
 
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
 
-                // Simulate API submission delay (replace with actual fetch if using a real backend)
-                await new Promise(resolve => setTimeout(resolve, 1500));
+        // --- Mobile Menu Toggle ---
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-                console.log('Form Submitted:', data);
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
 
-                // Assuming success for demonstration
-                formStatus.textContent = 'Message sent successfully! I will be in touch soon.';
-                formStatus.style.color = getComputedStyle(document.body).getPropertyValue('--secondary-color');
-                form.reset();
-                
-                // Clear message after a few seconds
-                setTimeout(() => {
-                    formStatus.textContent = '';
-                }, 5000);
-            });
+        // --- Error/Notification Handling ---
+        function showCustomError(message) {
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error-modal').classList.remove('hidden');
+        }
+        
+        // --- LLM API Call with Exponential Backoff ---
+        async function sendMessageToLLM(userMessage) {
+            const systemPrompt = "You are a professional portfolio assistant for Maneesh Thati, a web developer. When a user submits a contact form message, generate a brief (1-2 sentence), encouraging, and professional acknowledgment. Do not include external links or personal contact information.";
+            const userQuery = `A visitor just submitted a contact form with the message: "${userMessage}". Generate a reply acknowledgment.`;
             
-            // --- 3. Resume Download Button Handler ---
-            downloadBtn.addEventListener('click', () => {
-                // In a real application, you would trigger a file download here.
-                // For this mock, we just show a message.
-                downloadMsg.textContent = 'Simulated download started. Check the console for details.';
-                downloadMsg.style.color = getComputedStyle(document.body).getPropertyValue('--secondary-color');
-
-                setTimeout(() => {
-                    downloadMsg.textContent = '';
-                }, 3000);
-            });
-
-            // --- 4. Scroll-based Fade-In Animation (for .fade-in elements) ---
-            const observerOptions = {
-                root: null, // relative to the viewport
-                rootMargin: '0px',
-                threshold: 0.1 // 10% of item must be visible
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target); // Stop observing once it's visible
-                    }
-                });
-            }, observerOptions);
+            const maxRetries = 5;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-            fadeInElements.forEach(el => {
-                observer.observe(el);
-            });
+                    if (!response.ok) {
+                        const errorBody = await response.json();
+                        throw new Error(`API returned status ${response.status}: ${errorBody.error?.message || response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (text) {
+                        return text;
+                    } else {
+                        // Handle cases where the response is OK but content is missing
+                        throw new Error("Received an empty or malformed response from the model.");
+                    }
+
+                } catch (error) {
+                    console.error(`Attempt ${i + 1} failed:`, error.message);
+                    if (i === maxRetries - 1) {
+                        throw new Error("Failed to connect to the assistant. Please try again later.");
+                    }
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+
+        // --- Form Submission Handler ---
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Prepare UI for submission
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            responseContainer.classList.remove('hidden');
+            llmResponseDiv.textContent = '';
+            loadingIndicator.classList.remove('hidden');
+            
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const message = messageInput.value;
+
+            try {
+                // 1. Send form data (simulated successful submission)
+                console.log(`Simulating form submission from ${name} (${email}) with message: ${message}`);
+                await new Promise(resolve => setTimeout(resolve, 500)); // Simulate network latency
+
+                // 2. Call LLM for instant professional acknowledgment
+                const llmResponseText = await sendMessageToLLM(message);
+
+                // 3. Update UI with LLM response
+                llmResponseDiv.textContent = llmResponseText;
+
+                // 4. Reset form fields (optional)
+                contactForm.reset();
+                checkFormValidity();
+                
+            } catch (error) {
+                console.error("Submission error:", error);
+                showCustomError(error.message);
+                llmResponseDiv.textContent = 'An error occurred while generating the acknowledgment.';
+                responseContainer.classList.add('border-red-400', 'bg-red-50');
+            } finally {
+                // Reset UI elements
+                loadingIndicator.classList.add('hidden');
+                submitButton.textContent = 'Send Message';
+                submitButton.disabled = !contactForm.checkValidity();
+            }
         });
+        
+        // Initial check for submit button state
+        checkFormValidity();
     </script>
 
 </body>
 </html>
+
 
 
